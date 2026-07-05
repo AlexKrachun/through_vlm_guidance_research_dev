@@ -1,6 +1,8 @@
 import hydra 
 from omegaconf import DictConfig
 
+import logging
+
 from pathlib import Path
 import torch
 
@@ -12,6 +14,9 @@ from modules.utils import choose_device
 ROOT_DIR = Path(__file__).resolve().parent
 
 
+logging.getLogger('httpx').setLevel(logging.WARNING)
+logging.getLogger('httpcore').setLevel(logging.WARNING)
+logging.getLogger('huggingface_hub').setLevel(logging.WARNING)
 
 
 @hydra.main(config_path='configs', config_name='config', version_base=None)
