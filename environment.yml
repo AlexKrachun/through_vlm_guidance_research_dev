@@ -1,0 +1,23 @@
+name: through_guidance
+
+channels:
+  - defaults
+
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - torch
+    - torchvision
+    - numpy
+    - tqdm
+    - transformers
+    - lightning
+    - pillow
+    - huggingface_hub
+    - hydra-core
+    - accelerate
+    - matplotlib
+    
+    - jupyter
+    - ipykernel

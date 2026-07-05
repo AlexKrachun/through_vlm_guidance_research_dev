@@ -1,0 +1,42 @@
+import hydra 
+from omegaconf import DictConfig
+
+from pathlib import Path
+import torch
+
+from modules.sd15.main import run_sd15_pipeline
+from modules.guided_sd15.main import run_guided_sd15_pipeline
+from modules.utils import choose_device
+
+
+ROOT_DIR = Path(__file__).resolve().parent
+
+
+
+
+@hydra.main(config_path='configs', config_name='config', version_base=None)
+def main(cfg: DictConfig) -> None:
+    device = choose_device()
+    
+    if cfg.pipeline.name == 'sd15':
+        run_sd15_pipeline(cfg, ROOT_DIR, device)
+        
+    elif cfg.pipeline.name == 'guided_sd15':
+        run_guided_sd15_pipeline(cfg, ROOT_DIR, device)
+    
+    else:
+        raise ValueError(f'Unknown pipeline name: {cfg.pipeline.name = }')
+        
+        
+        
+if __name__ == "__main__":
+    main()
+        
+
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+name: sd15
+
+params:
+  do_cfg: true
+  cfg_scale: 7.5
+  sampler_name: ddpm
+  n_inference_steps: 30
+
+assets:
+  sd_repo_id: stable-diffusion-v1-5/stable-diffusion-v1-5
+  sd_ckpt: v1-5-pruned-emaonly.ckpt
+  clip_repo_id: openai/clip-vit-large-patch14
+  vocab_file: vocab.json
+  merges_file: merges.txt

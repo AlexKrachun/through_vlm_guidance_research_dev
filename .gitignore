@@ -1,0 +1,113 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env
+.env.*
+!.env.example
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Type checkers, linters, coverage
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+
+# IDEs and OS files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Hydra and experiment outputs
+.hydra/
+outputs/
+multirun/
+generations/
+logs/
+wandb/
+mlruns/
+tensorboard/
+runs/
+
+# Model weights and local Hugging Face caches
+sources/
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+*.gguf
+*.npz
+*.npy
+
+# Datasets and generated media artifacts
+datasets/**/*.jpg
+datasets/**/*.jpeg
+datasets/**/*.png
+datasets/**/*.webp
+datasets/**/*.bmp
+datasets/**/*.gif
+datasets/**/*.tiff
+datasets/**/*.mp4
+datasets/**/*.mov
+datasets/**/*.avi
+datasets/**/*.mkv
+datasets/**/*.zip
+datasets/**/*.tar
+datasets/**/*.tar.gz
+datasets/**/*.tgz
+datasets/**/*.rar
+datasets/**/*.7z
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.log
+
+# macOS resource forks
+._*
+
+
+!datasets/image.png

@@ -1,0 +1,17 @@
+name: qwen35_loss
+
+model: 
+  _target_: modules.qwen35_loss.Qwen35Loss
+  model_id: Qwen/Qwen3-VL-2B-Instruct
+  cache_dir: ${paths.source_dir}
+  dtype: float32
+  loss_fn: 
+    _target_: modules.utils.yes_no_loss_
+    _partial_: true
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+
+defaults:
+- _self_
+- pipeline: sd15
+- generation: single_prompt
+- vlm_loss: qwen35_loss
+
+paths:
+  data_dir: data
+  source_dir: sources
+  output_dir: generations
+
+
+constants:
+  seed: 67
+
+
+hydra:
+  run:
+    dir: ${paths.output_dir}/${generation.output_folder}
+  sweep:
+    dir: ${paths.output_dir}/${generation.output_folder}
+    subdir: ${hydra.job.num}
+
+
+
+
+

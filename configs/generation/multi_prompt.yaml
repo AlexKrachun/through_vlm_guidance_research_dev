@@ -1,0 +1,6 @@
+mode: multi_prompt
+
+prompts_file: datasets/prompts.txt
+uncond_prompt: ""
+
+output_folder: simple_prompts
