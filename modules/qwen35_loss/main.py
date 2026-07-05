@@ -29,7 +29,8 @@ class Qwen35Loss:
             model_id,
             cache_dir=cache_dir,
             dtype='auto',
-        )
+        ).to(self.device)
+
 
         self.model.eval()
         
@@ -56,9 +57,7 @@ class Qwen35Loss:
         
         inputs = inputs.to(self.device)
         
-        self.model.to(self.device)
         outputs = self.model(**inputs)
-        self.model.to('cpu')
         
         last_logits = outputs.logits[0, -1, :].to(dtype=self.dtype)
         
