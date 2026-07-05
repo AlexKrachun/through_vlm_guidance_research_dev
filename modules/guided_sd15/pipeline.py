@@ -230,8 +230,6 @@ def generate(
             loss.backward()
             optimizer.step()
             
-            print(f'checking if our vlm loss detachs img from autograd graph:')
-            print(f'{key_step_latent.grad is None = }')
             
             latents = key_step_latent.detach().clone()
 
@@ -271,9 +269,9 @@ def rescale(x, old_range, new_range, clamp=False):
     old_min, old_max = old_range
     new_min, new_max = new_range
     
-    x -= old_min
-    x *= (new_max - new_min) / (old_max - old_min)
-    x += new_min
+    x = x - old_min
+    x = x * (new_max - new_min) / (old_max - old_min)
+    x = x + new_min
     
     if clamp:
         x = x.clamp(new_min, new_max)

@@ -112,7 +112,7 @@ class VAE_Decoder(nn.Sequential):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # B 4 H/8 W/8
         
-        x /= 0.18215
+        x = x / 0.18215
         
         for module in self:
             x = module(x)
