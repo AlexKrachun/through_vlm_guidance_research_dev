@@ -55,9 +55,10 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
         result_img_path = output_path / filename
 
         (
-            logging_save_intermediate_finals_path,logging_save_guidance_diffs_path,
+            logging_save_intermediate_finals_path,
+            logging_save_guidance_diffs_path,
             logging_save_latents_path,
-            logging_save_nablas_path
+            logging_save_nablas_path, 
         ) = create_extra_pipeline_dirs(output_path, cfg)
         
 
@@ -112,9 +113,10 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
             result_img_path = output_path  / 'sd15.png'
             
             (
-                logging_save_intermediate_finals_path,logging_save_guidance_diffs_path,
+                logging_save_intermediate_finals_path,
+                logging_save_guidance_diffs_path,
                 logging_save_latents_path,
-                logging_save_nablas_path
+                logging_save_nablas_path, 
             ) = create_extra_pipeline_dirs(output_path, cfg)
         
             output_image = pipeline.generate(

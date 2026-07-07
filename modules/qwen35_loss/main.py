@@ -43,7 +43,7 @@ class Qwen35Loss:
         
         
 
-    def __call__(self, image_rgb: torch.Tensor, img_prompt: str, target_yes: bool=True):
+    def __call__(self, image_rgb: torch.Tensor, img_prompt: str, target_yes: bool=True, give_me_distribution: bool=False):
         
         messages = self.build_messages_(image_rgb=image_rgb, img_prompt=img_prompt)
         
@@ -67,7 +67,14 @@ class Qwen35Loss:
                 
         loss = self.loss_fn(yes_logits=yes_logits, no_logits=no_logits, target_yes=target_yes)
         
-        return loss
+        if give_me_distribution:
+            logit_distribution = torch.softmax(last_logits, dim=-1)
+            
+            yes_distribution = logit_distribution[self.yes_ids].detach().clone().cpu().sum().item()
+            no_distribution = logit_distribution[self.no_ids].detach().clone().cpu().sum().item()
+            return loss, {'yes_distribution': yes_distribution, 'no_distribution': no_distribution}
+
+        return loss, {}
         
 
 

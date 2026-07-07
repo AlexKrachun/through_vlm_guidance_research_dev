@@ -6,6 +6,7 @@ from .ddpm import DDPMSampler
 from omegaconf import DictConfig
 from hydra.utils import instantiate
 from pathlib import Path
+import json
 
 from . import loss
 from ..utils import save_0_255_tensor_as_img, save_0_255_guidance_diffs
@@ -148,6 +149,9 @@ def generate(
     if cfg.pipeline.logging.save_guidance_diffs:
         intermediate_finals = []
     
+    if cfg.pipeline.logging.save_yes_no_distributions:
+        yes_no_distributions = {}
+    
     for g_id, guiding_timestep in enumerate(guidance_steps_loader):
         diffusion.to(device)
         
@@ -215,20 +219,28 @@ def generate(
             if g_id == 0:
                 intermediate_final_path = logging_save_intermediate_finals_path / f'intermediate_final-init.png'
             else:
-                intermediate_final_path = logging_save_intermediate_finals_path / f'intermediate_final-{guidance_steps[g_id - 1]}.png'
+                intermediate_final_path = logging_save_intermediate_finals_path / f'intermediate_final-{guidance_steps[g_id]}.png'
             save_0_255_tensor_as_img(img_tensor=images_copy, path=intermediate_final_path)
         
         
         images = images.permute(0, 2, 3, 1)  # B C H W -> B H W C
 
         if guiding_timestep is not None:
-            loss = vlm_criterion(
+            loss, yes_no_distribution = vlm_criterion(
                 image_rgb=images[0],
                 img_prompt=prompt,
                 target_yes=cfg.pipeline.guidance.target_yes,
+                give_me_distribution=cfg.pipeline.logging.save_yes_no_distributions
             )
             loss.backward()
             optimizer.step()
+            
+            if cfg.pipeline.logging.save_yes_no_distributions:
+                if g_id == 0:
+                    yes_no_distributions[f'g-init'] = yes_no_distribution
+                else:
+                    yes_no_distributions[f'g-{g_id}-s-{guidance_steps[g_id - 1]}'] = yes_no_distribution
+                    
             
             
             latents = key_step_latent.detach().clone()
@@ -240,9 +252,6 @@ def generate(
             nablas_path = logging_save_nablas_path / f'nabla-g{guiding_timestep}.pt'
             torch.save(key_step_latent.grad.detach().to(device='cpu'), nablas_path)
             
-        
-
-        
         
         
             
@@ -263,6 +272,10 @@ def generate(
     if cfg.pipeline.logging.save_guidance_diffs:
         save_0_255_guidance_diffs(img_tensors=intermediate_finals, path=logging_save_guidance_diffs_path)
     
+    if cfg.pipeline.logging.save_yes_no_distributions:
+        with open(logging_save_general_path / 'yes_no_distributions.json', 'w', encoding='utf-8') as f:
+            json.dump(yes_no_distributions, f, ensure_ascii=False, indent=4)
+        
     return images[0]
     
 def rescale(x, old_range, new_range, clamp=False):

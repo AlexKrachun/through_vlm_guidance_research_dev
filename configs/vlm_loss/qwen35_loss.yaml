@@ -10,8 +10,6 @@ model:
     _partial_: true
 
 
-  # todo:
-  # log yes/no distribution for vlm
 
 
 

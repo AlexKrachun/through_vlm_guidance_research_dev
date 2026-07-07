@@ -30,5 +30,6 @@ logging:
   save_guidance_diffs: true
   save_latents: true
   save_nablas: true
+  save_yes_no_distributions: true
 
 
