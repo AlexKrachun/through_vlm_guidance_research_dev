@@ -11,7 +11,7 @@ def normalize_prompt(prompt, prefix='', postfix=''):
     name = re.sub(r'_+', '_', name)
     name = name.strip('_-')
     name = name[:60]
-    name = prefix + '_' + name + postfix
+    name = prefix + '_' * (len(prefix) != 0) + name + postfix
     return name 
 
 

@@ -43,7 +43,7 @@ HYDRA_FULL_ERROR=1 python run.py\
     generation=single_prompt\
     'generation.prompt=unicorn on the chessboard'\
     pipeline.params.n_inference_steps=10\
-    'pipeline.guidance.steps_to_guide=[2]'\
+    'pipeline.guidance.steps_to_guide=[2, 2, 3]'\
     pipeline.optimizer.lr=1e-3
 ```
 
