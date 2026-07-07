@@ -219,7 +219,7 @@ def generate(
             if g_id == 0:
                 intermediate_final_path = logging_save_intermediate_finals_path / f'intermediate_final-init.png'
             else:
-                intermediate_final_path = logging_save_intermediate_finals_path / f'intermediate_final-{guidance_steps[g_id]}.png'
+                intermediate_final_path = logging_save_intermediate_finals_path / f'intermediate_final-{guidance_steps[g_id-1]}.png'
             save_0_255_tensor_as_img(img_tensor=images_copy, path=intermediate_final_path)
         
         
