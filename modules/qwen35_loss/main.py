@@ -68,11 +68,12 @@ class Qwen35Loss:
         loss = self.loss_fn(yes_logits=yes_logits, no_logits=no_logits, target_yes=target_yes)
         
         if give_me_distribution:
-            logit_distribution = torch.softmax(last_logits, dim=-1)
-            
-            yes_distribution = logit_distribution[self.yes_ids].detach().clone().cpu().sum().item()
-            no_distribution = logit_distribution[self.no_ids].detach().clone().cpu().sum().item()
-            return loss, {'yes_distribution': yes_distribution, 'no_distribution': no_distribution}
+            with torch.no_grad():
+                probs = torch.softmax(last_logits.float(), dim=-1)
+                
+                yes_distribution = probs[self.yes_ids].detach().cpu().sum().item()
+                no_distribution = probs[self.no_ids].detach().cpu().sum().item()
+                return loss, {'yes_distribution': yes_distribution, 'no_distribution': no_distribution}
 
         return loss, {}
         

@@ -24,7 +24,7 @@ HYDRA_FULL_ERROR=1 python run.py\
     pipeline=guided_sd15\
     generation=single_prompt\
     pipeline.params.n_inference_steps=10\
-    'pipeline.guidance.steps_to_guide=[0, 3, 6, 9]'\
+    'pipeline.guidance.steps_to_guide=[3, 6, 9]'\
 
 HYDRA_FULL_ERROR=1 python run.py\
     pipeline=guided_sd15\
