@@ -13,6 +13,8 @@ class DDPMSampler:
         self.num_training_steps = num_training_steps
         self.timesteps = torch.from_numpy(np.arange(0, num_training_steps)[::-1].copy())
         
+        self.noise_cache = dict()
+        
         
     def set_inference_timesteps(self, num_inference_steps=50):
         self.num_inference_steps = num_inference_steps
@@ -56,7 +58,7 @@ class DDPMSampler:
         self.start_step = start_step
         
         
-    def step(self, timestep: int, latents: torch.Tensor, model_output: torch.Tensor) -> torch.Tensor:
+    def step(self, timestep: int, latents: torch.Tensor, model_output: torch.Tensor, try_use_cached_noise: bool = True) -> torch.Tensor:
         t = timestep
         prev_t = self._get_previous_timestep(t)
         device = model_output.device
@@ -86,7 +88,11 @@ class DDPMSampler:
         pred_prev_sample = pred_original_sample_coeff * pred_original_sample + current_sample_coeff * latents
         
         if t > 0:  # if not last timestep, where we do not add noise
-            noise = torch.randn(model_output.shape, generator=self.generator, device=device, dtype=model_output.dtype)
+            if try_use_cached_noise and timestep in self.noise_cache.keys():
+                noise = self.noise_cache[timestep]
+            else:
+                noise = torch.randn(model_output.shape, generator=self.generator, device=device, dtype=model_output.dtype)
+                self.noise_cache[timestep] = noise
             variance = (self._get_variance(t, device=device, dtype=dtype) ** 0.5) * noise
         else:
             variance = 0

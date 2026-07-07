@@ -214,7 +214,7 @@ def generate(
                 output_cond, output_uncod = model_output.chunk(2)
                 model_output = cfg_scale * (output_cond - output_uncod) + output_uncod
             
-            latents = sampler.step(timestep, step_latent, model_output)
+            latents = sampler.step(timestep, step_latent, model_output, try_use_cached_noise=True)
             
                     
         
