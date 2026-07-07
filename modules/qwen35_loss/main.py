@@ -20,38 +20,20 @@ class Qwen35Loss:
         self.device = device
         
         
-        print('Qwen init: before processor', flush=True)
         self.processor = AutoProcessor.from_pretrained(
             model_id,
             cache_dir=cache_dir,
         )
 
-        print('Qwen init: before model load', flush=True)
         self.model = Qwen3VLForConditionalGeneration.from_pretrained(
             model_id,
             cache_dir=cache_dir,
-            dtype='auto',
+            dtype=torch.bfloat16,
+            device_map={'': self.device}
         )
 
-        print('Qwen init: before model.to(device)', flush=True)
-        self.model = self.model.to(self.device)
 
-        print('Qwen init: after model.to(device)', flush=True)
         self.model.eval()
-        
-        # self.processor = AutoProcessor.from_pretrained(
-        #     model_id,
-        #     cache_dir=cache_dir,
-        # )
-
-        # self.model = Qwen3VLForConditionalGeneration.from_pretrained(
-        #     model_id,
-        #     cache_dir=cache_dir,
-        #     dtype='auto',
-        # ).to(self.device)
-
-
-        # self.model.eval()
         
         for param in self.model.parameters():
             param.requires_grad_(False)
