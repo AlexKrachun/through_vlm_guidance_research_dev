@@ -3,7 +3,7 @@ defaults:
 - _self_
 - pipeline: sd15
 - generation: single_prompt
-- vlm_loss: qwen35_loss
+- vlm_loss: qwen3_loss
 
 paths:
   data_dir: data
