@@ -29,7 +29,7 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
 
 
     tokenizer = CLIPTokenizer(str(vocab_path), str(merges_path))
-    models = model_loader.preload_models_from_standart_weights(str(model_path), device)
+    models = model_loader.preload_models_from_standart_weights(str(model_path), 'cpu')
     
     
     seed =  cfg.constants.seed
