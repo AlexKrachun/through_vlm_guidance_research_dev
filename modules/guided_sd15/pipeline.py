@@ -252,13 +252,20 @@ def generate(
             
             latents = key_step_latent.detach().clone()
 
+
         to_idle(diffusion)
         to_idle(decoder)
 
         if guiding_timestep is not None and cfg.pipeline.logging.save_nablas:
             nablas_path = logging_save_nablas_path / f'{g_tag}-nabla.pt'
             torch.save(key_step_latent.grad.detach().to(device='cpu'), nablas_path)
-            
+        
+        if guiding_timestep is not None:
+            optimizer.zero_grad(set_to_none=True)
+            del optimizer
+            del loss
+            del key_step_latent
+            del images
         
         
             
