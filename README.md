@@ -43,7 +43,7 @@ HYDRA_FULL_ERROR=1 python run.py\
     generation=single_prompt\
     'generation.prompt=A bear does a handstand in the park'\
     pipeline.params.n_inference_steps=50\
-    'pipeline.guidance.steps_to_guide=[20, 20, 20]'\
+    'pipeline.guidance.steps_to_guide=[20]'\
     pipeline.optimizer.lr=1e-1\
 ```
 
@@ -58,7 +58,7 @@ todo
     - пусть будет i in range(0, 51, 10), steps_to_guide=[i, i, i, i, i]
     - lr: 1e-3, 1e-2, 1e-1
 - построить графики
-    - yes, no расределений
+    - yes, no расределений и соотнести с картинками (возможно надо сделать vlm промпт строже)
     - норм градиентов
     - норм латентов
 
@@ -71,6 +71,8 @@ how guided pipeline works
 - ddpm noise caching для того, чтобы сравнивать корректировку траектории, а не "разные сиды"
 
 
+потребление vram:
+- guided_sd1.5 ~23 gb
 -->
 
 
