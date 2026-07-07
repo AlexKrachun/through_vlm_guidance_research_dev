@@ -41,7 +41,7 @@ HYDRA_FULL_ERROR=1 python run.py\
 HYDRA_FULL_ERROR=1 python run.py\
     pipeline=guided_sd15\
     generation=single_prompt\
-    'generation.prompt=unicorn on the chessboard'\
+    'generation.prompt=unicorn stands on the chessboard'\
     pipeline.params.n_inference_steps=10\
     'pipeline.guidance.steps_to_guide=[2, 2, 3]'\
     pipeline.optimizer.lr=1e-3
@@ -54,7 +54,6 @@ HYDRA_FULL_ERROR=1 python run.py\
 <!-- 
 todo
 - grad checkpointing
-- log yes/no distribution for vlm
 
 
 

@@ -18,6 +18,7 @@ assets:
 guidance: 
   steps_to_guide: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   target_yes: true
+  do_grad_checkpointing: true
 
 
 optimizer:

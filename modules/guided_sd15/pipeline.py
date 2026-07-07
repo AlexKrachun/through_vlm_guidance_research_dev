@@ -1,4 +1,5 @@
 import torch
+from torch.utils.checkpoint import checkpoint
 import numpy as np
 from tqdm.auto import tqdm
 from .ddpm import DDPMSampler
@@ -131,7 +132,8 @@ def generate(
         diffusion.to(device)
         diffusion.requires_grad_(False)
         
-            
+    def run_diffusion(model_input, context, time_embedding):
+        return diffusion(model_input, context, time_embedding)
     
     vlm_criterion = instantiate(cfg.vlm_loss.model, device=device)
     
@@ -195,7 +197,17 @@ def generate(
                 model_input = model_input.repeat(2, 1, 1, 1)
             
             
-            model_output = diffusion(model_input, context, time_embedding)  # run unet
+            if cfg.pipeline.guidance.do_grad_checkpointing and model_input.requires_grad:
+                model_output = checkpoint(
+                    run_diffusion,
+                    model_input,
+                    context,
+                    time_embedding,
+                    use_reentrant=False, 
+                    preserve_rng_state=False,
+                )  # run unet
+            else:
+                model_output = diffusion(model_input, context, time_embedding)  # run unet
             
             if do_cfg:
                 output_cond, output_uncod = model_output.chunk(2)
