@@ -239,7 +239,7 @@ def generate(
                 if g_id == 0:
                     yes_no_distributions[f'g-init'] = yes_no_distribution
                 else:
-                    yes_no_distributions[f'g-{g_id}-s-{guidance_steps[g_id - 1]}'] = yes_no_distribution
+                    yes_no_distributions[f'g-{g_id}-s-{guidance_steps[g_id - 1]}-t{timestep}'] = yes_no_distribution
                     
             
             
