@@ -27,7 +27,7 @@ def choose_device(allow_cuda: bool=True, allow_mps: bool=True) -> str:
 
 
 
-def save_0_255_guidance_diffs(img_tensors: list[torch.tensor], path: Path):
+def save_0_255_guidance_diffs(img_tensors: list[torch.tensor], path: Path, tags: list):
     for i in range(len(img_tensors)):
         img_tensors[i] = img_tensors[i].detach().clone().to(device='cpu')
         img_tensors[i] = img_tensors[i].permute(0, 2, 3, 1)
@@ -39,7 +39,7 @@ def save_0_255_guidance_diffs(img_tensors: list[torch.tensor], path: Path):
         diff = diff.clamp(0, 255)
         diff = diff.to(dtype=torch.uint8).numpy()
 
-        result_path = path / f'diff{i}-{i-1}.png'
+        result_path = path / f'{tags[i-1]}-to_{tags[i]}.png'
         Image.fromarray(diff).save(result_path)
         
     
@@ -98,6 +98,14 @@ def create_extra_pipeline_dirs(base_path: Path, cfg):
 
 
 
+def guidance_tag(g_id: int, guiding_step: int | None) -> str:
+    if guiding_step is None:
+        return f'g{g_id:03d}-final'
+    return f'g{g_id:03d}-guide_s{guiding_step}'
+
+
+def denoise_tag(t_id: int, timestep: int) -> str:
+    return f'd{t_id:03d}-t{timestep:04d}'
 
 
 

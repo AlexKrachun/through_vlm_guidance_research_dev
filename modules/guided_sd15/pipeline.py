@@ -9,7 +9,7 @@ from pathlib import Path
 import json
 
 from . import loss
-from ..utils import save_0_255_tensor_as_img, save_0_255_guidance_diffs
+from ..utils import save_0_255_tensor_as_img, save_0_255_guidance_diffs, guidance_tag, denoise_tag
 
 
 
@@ -148,11 +148,13 @@ def generate(
     
     if cfg.pipeline.logging.save_guidance_diffs:
         intermediate_finals = []
+        intermediate_finals_tags = []
     
     if cfg.pipeline.logging.save_yes_no_distributions:
         yes_no_distributions = {}
     
     for g_id, guiding_timestep in enumerate(guidance_steps_loader):
+        g_tag = guidance_tag(g_id=g_id, guiding_step=guiding_timestep)
         diffusion.to(device)
         
         timesteps = tqdm(
@@ -164,16 +166,15 @@ def generate(
         
         for t_id, timestep in enumerate(timesteps, skip_first_denoise_steps):
             timestep = timestep.item()
+            d_tag = denoise_tag(t_id=t_id, timestep=timestep)
+
             # 1 320
             with torch.no_grad():
                 time_embedding = get_time_embedding(timestep).to(device)
             
             
             if cfg.pipeline.logging.save_latents:
-                if g_id == 0:
-                    latents_path = logging_save_latents_path / f'latent-g-init-t{timestep}.pt'
-                else:
-                    latents_path = logging_save_latents_path / f'latent-g{guidance_steps[g_id - 1]}-t{timestep}.pt'
+                latents_path = logging_save_latents_path / f'{g_tag}-{d_tag}-latent.pt'
                 torch.save(latents.detach().clone().to(device='cpu'), latents_path)
 
 
@@ -213,13 +214,12 @@ def generate(
         
         if cfg.pipeline.logging.save_guidance_diffs:
             intermediate_finals.append(images.detach().clone().to(device='cpu'))
+            intermediate_finals_tags.append(g_tag)
         
         if cfg.pipeline.logging.save_intermediate_finals:
             images_copy = images.detach().clone().to(device='cpu')
-            if g_id == 0:
-                intermediate_final_path = logging_save_intermediate_finals_path / f'intermediate_final-init.png'
-            else:
-                intermediate_final_path = logging_save_intermediate_finals_path / f'intermediate_final-{guidance_steps[g_id-1]}.png'
+            
+            intermediate_final_path = logging_save_intermediate_finals_path / f'{g_tag}-image_before_update.png'
             save_0_255_tensor_as_img(img_tensor=images_copy, path=intermediate_final_path)
         
         
@@ -236,12 +236,7 @@ def generate(
             optimizer.step()
             
             if cfg.pipeline.logging.save_yes_no_distributions:
-                if g_id == 0:
-                    yes_no_distributions[f'g-init'] = yes_no_distribution
-                else:
-                    yes_no_distributions[f'g-{g_id}-s-{guidance_steps[g_id - 1]}-t{timestep}'] = yes_no_distribution
-                    
-            
+                yes_no_distributions[f'{g_tag}-before_update'] = yes_no_distribution
             
             latents = key_step_latent.detach().clone()
 
@@ -249,7 +244,7 @@ def generate(
         to_idle(decoder)
 
         if guiding_timestep is not None and cfg.pipeline.logging.save_nablas:
-            nablas_path = logging_save_nablas_path / f'nabla-g{guiding_timestep}.pt'
+            nablas_path = logging_save_nablas_path / f'{g_tag}-nabla.pt'
             torch.save(key_step_latent.grad.detach().to(device='cpu'), nablas_path)
             
         
@@ -270,7 +265,7 @@ def generate(
     
     
     if cfg.pipeline.logging.save_guidance_diffs:
-        save_0_255_guidance_diffs(img_tensors=intermediate_finals, path=logging_save_guidance_diffs_path)
+        save_0_255_guidance_diffs(img_tensors=intermediate_finals, path=logging_save_guidance_diffs_path, tags=intermediate_finals_tags)
     
     if cfg.pipeline.logging.save_yes_no_distributions:
         with open(logging_save_general_path / 'yes_no_distributions.json', 'w', encoding='utf-8') as f:
