@@ -88,6 +88,9 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
             logging_save_general_path=output_path,
         )
         
+        with open(output_path / 'prompt.txt', 'w', encoding='utf-8') as f:
+            print(prompt, file=f)
+        
         Image.fromarray(output_image).save(result_img_path)
     
     
@@ -143,7 +146,9 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
                 logging_save_general_path=output_path,
             )
         
-            
+            with open(output_path / 'prompt.txt', 'w', encoding='utf-8') as f:
+                print(prompt, file=f)
+                
             Image.fromarray(output_image).save(result_img_path)
                 
             

@@ -43,8 +43,8 @@ HYDRA_FULL_ERROR=1 python run.py\
     generation=single_prompt\
     'generation.prompt=A bear does a handstand in the park'\
     pipeline.params.n_inference_steps=50\
-    'pipeline.guidance.steps_to_guide=[0, 0, 0, 0, 0, 0, 0, 0]'\
-    pipeline.optimizer.lr=1e-1
+    'pipeline.guidance.steps_to_guide=[10, 10, 10, 10, 10, 10, 10, 10]'\
+    pipeline.optimizer.lr=1e-1\
 ```
 
 
@@ -53,9 +53,11 @@ HYDRA_FULL_ERROR=1 python run.py\
 
 <!-- 
 todo
-- переиспользовать шумы в ddpm семлере, чтобы лучше было видно гайденс
+- сохранять текст промпта рядом с картиной.
 - сделать llm as a jundge и прогнать экспы на улучшение alignment
-
+- запустить girdsearch:
+    - пусть будет i in 0-50, steps_to_guide=[i, i, i, i]
+    - lr: 1e-3, 1e-2, 1e-1
 
 
 
@@ -64,7 +66,6 @@ todo
 how guided pipeline works
 - vlm guidance via vlm loss
 - ddpm noise caching для того, чтобы сравнивать корректировку траектории, а не "разные сиды"
-
 
 
 -->

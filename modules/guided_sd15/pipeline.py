@@ -140,7 +140,7 @@ def generate(
     
     guidance_steps_loader = tqdm(
         guidance_steps + [None], 
-        desc='guide-steps', 
+        desc='generation-steps', 
         position=progress_position, 
         leave=progress_leave
     )
@@ -290,7 +290,7 @@ def generate(
     if cfg.pipeline.logging.save_yes_no_distributions:
         with open(logging_save_general_path / 'yes_no_distributions.json', 'w', encoding='utf-8') as f:
             json.dump(yes_no_distributions, f, ensure_ascii=False, indent=4)
-        
+    
     return images[0]
     
 def rescale(x, old_range, new_range, clamp=False):
