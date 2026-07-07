@@ -160,10 +160,11 @@ def generate(
         diffusion.to(device)
         
         timesteps = tqdm(
-            sampler.timesteps[skip_first_denoise_steps:], 
-            desc='sample-steps', 
+            sampler.timesteps[skip_first_denoise_steps:],
+            total=len(sampler.timesteps[skip_first_denoise_steps:]),
+            desc=f'sample-steps {g_tag}', 
             position=progress_position+1, 
-            leave=progress_leave
+            leave=False
         )
         
         for t_id, timestep in enumerate(timesteps, skip_first_denoise_steps):

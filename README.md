@@ -41,10 +41,10 @@ HYDRA_FULL_ERROR=1 python run.py\
 HYDRA_FULL_ERROR=1 python run.py\
     pipeline=guided_sd15\
     generation=single_prompt\
-    'generation.prompt=unicorn stands on the chessboard'\
-    pipeline.params.n_inference_steps=10\
-    'pipeline.guidance.steps_to_guide=[2, 2, 3]'\
-    pipeline.optimizer.lr=1e-3
+    'generation.prompt=A bear does a handstand in the park'\
+    pipeline.params.n_inference_steps=50\
+    'pipeline.guidance.steps_to_guide=[0]'\
+    pipeline.optimizer.lr=1e-4
 ```
 
 
@@ -53,7 +53,9 @@ HYDRA_FULL_ERROR=1 python run.py\
 
 <!-- 
 todo
-- grad checkpointing
+- разобрать странное поведение лодеров при guided генерации
+- сделать llm as a jundge и прогнать экспы на улучшение alignment
+
 
 
 
