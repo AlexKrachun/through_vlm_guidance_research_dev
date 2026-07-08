@@ -18,7 +18,8 @@ def run_sd15_pipeline(cfg, ROOT_DIR, device):
     SD15_REPO = cfg.pipeline.assets.sd_repo_id
     SD15_CKPT = cfg.pipeline.assets.sd_ckpt
     
-    OUTPUT_DIR = ROOT_DIR / cfg.paths.output_dir
+    
+    OUTPUT_DIR = utils.generation_output_dir(ROOT_DIR, cfg)
         
     vocab_path = assets.hf_get(sources_dir=SOURCE_DIR, repo_id=CLIP_REPO, filename='vocab.json')
     merges_path = assets.hf_get(sources_dir=SOURCE_DIR, repo_id=CLIP_REPO, filename='merges.txt')
@@ -57,13 +58,11 @@ def run_sd15_pipeline(cfg, ROOT_DIR, device):
         )
         
         filename = utils.normalize_prompt(prompt, postfix='.png')
-        output_path = OUTPUT_DIR /(cfg.generation.folder_prefix + '_' + cfg.generation.output_folder)
-        output_path.mkdir(parents=True, exist_ok=True)
-        result_img_path = output_path / filename
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        result_img_path = OUTPUT_DIR / filename
         
-        Image.fromarray(output_image).save(output_path)
         
-        with open(output_path / 'prompt.txt', 'w', encoding='utf-8') as f:
+        with open(OUTPUT_DIR / 'prompt.txt', 'w', encoding='utf-8') as f:
             print(prompt, file=f)
         
         Image.fromarray(output_image).save(result_img_path)
@@ -104,7 +103,7 @@ def run_sd15_pipeline(cfg, ROOT_DIR, device):
             )
             
             foldername = utils.normalize_prompt(prompt, prefix=f'{i+1:03}')
-            general_folder = OUTPUT_DIR / (cfg.generation.folder_prefix + '_' + cfg.generation.output_folder) / foldername
+            general_folder = OUTPUT_DIR / foldername
             output_path = general_folder / 'sd15.png'
             output_path.parent.mkdir(parents=True, exist_ok=True)
             

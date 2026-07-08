@@ -4,6 +4,10 @@ from PIL import Image
 import re
 import hashlib
 
+def generation_output_dir(ROOT_DIR: Path, cfg) -> Path:
+    return ROOT_DIR / cfg.paths.output_dir / (cfg.generation.folder_prefix + '_' + cfg.generation.output_folder)
+
+
 def judgment_hash(image_path: Path, image_prompt: str, setup: str) -> str:
     h = hashlib.sha256()
     h.update(image_path.read_bytes())

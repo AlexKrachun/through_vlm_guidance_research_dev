@@ -10,7 +10,7 @@ model:
 
 
 params:
-  judge_type: ${generation.mode}  # single_prompt/multi_prompt
+  judge_type: multi_prompt  # single_prompt/multi_prompt
   data_folder: ${paths.output_dir}
   explanation_max_words: 30
   judgment_results_file: ${paths.output_dir}/judgment.csv

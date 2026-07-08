@@ -4,4 +4,4 @@ prompt: The glider is flying in the clouds
 uncond_prompt: ""
 
 output_folder: usuals
-folder_prefix: signle_prompt
+folder_prefix: single_prompt
