@@ -104,7 +104,7 @@ def run_sd15_pipeline(cfg, ROOT_DIR, device):
             
             Image.fromarray(output_image).save(output_path)
             
-            with open( OUTPUT_DIR / cfg.generation.output_folder / foldername, 'w', encoding='utf-8') as f:
+            with open( OUTPUT_DIR / cfg.generation.output_folder / foldername / 'prompt.txt', 'w', encoding='utf-8') as f:
                 print(prompt, file=f)
                 
             
