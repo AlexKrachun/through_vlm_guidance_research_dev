@@ -29,7 +29,7 @@ optimizer:
 logging:
   save_intermediate_finals: true
   save_guidance_diffs: true
-  save_latents: true
+  save_latents: false
   save_nablas: true
   save_yes_no_distributions: true
 

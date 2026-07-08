@@ -40,6 +40,10 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
     
     if not all(guidance_steps[i] >= guidance_steps[i-1] for i in range(1, len(guidance_steps))):
         raise ValueError(f'Error: steps_to_guide are to be non-decreasing')
+    
+    if not all(guidance_steps[i] <= n_inference_steps for i in range(1, len(guidance_steps))):
+        raise ValueError(f'Error: steps_to_guide have to be less than n_inference_steps: {n_inference_steps}')
+
 
     
     vlm_criterion = instantiate(cfg.vlm_loss.model, device=device)
