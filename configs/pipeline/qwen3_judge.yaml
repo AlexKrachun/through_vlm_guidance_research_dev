@@ -1,0 +1,17 @@
+name: qwen3_judge
+
+
+model:
+  _target_: modules.qwen3_judge.Qwen3Judge
+  model_id: Qwen/Qwen3-VL-8B-Instruct
+  cache_dir: ${paths.source_dir}
+  dtype: bfloat16
+
+
+
+params:
+  judge_type: ${generation.mode}  # single_prompt/multi_prompt
+  data_folder: ${paths.output_dir}
+  explanation_max_words: 30
+  judgment_results_file: ${paths.output_dir}/judgment.csv
+  multi_prompt_folders_prefix: multi_prompt

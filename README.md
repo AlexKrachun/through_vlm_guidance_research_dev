@@ -13,18 +13,18 @@ conda activate through_guidance
 HYDRA_FULL_ERROR=1 python run.py\
     pipeline=sd15\
     generation=single_prompt\
-    pipeline.params.n_inference_steps=10\
+    pipeline.params.n_inference_steps=10
 
 HYDRA_FULL_ERROR=1 python run.py\
     pipeline=sd15\
     generation=multi_prompt\
-    pipeline.params.n_inference_steps=10\
+    pipeline.params.n_inference_steps=10
 
 HYDRA_FULL_ERROR=1 python run.py\
     pipeline=guided_sd15\
     generation=single_prompt\
     pipeline.params.n_inference_steps=10\
-    'pipeline.guidance.steps_to_guide=[3, 6, 9]'\
+    'pipeline.guidance.steps_to_guide=[3, 6, 9]'
 
 HYDRA_FULL_ERROR=1 python run.py\
     pipeline=guided_sd15\
@@ -32,7 +32,6 @@ HYDRA_FULL_ERROR=1 python run.py\
     pipeline.params.n_inference_steps=10\
     'pipeline.guidance.steps_to_guide=[2]'\
     pipeline.optimizer.lr=1e-4
-
 
 
 
@@ -51,8 +50,13 @@ HYDRA_FULL_ERROR=1 python run.py\
 
 
 
+
+
+
+
 <!-- 
 todo
+- поэксперементировать с гайденсом и разным cfg коэффицентом
 - сделать llm as a judge сделать
 - прогнать экспы на улучшение alignment - girdsearch:
     - пусть будет i in range(0, 51, 10), steps_to_guide=[i, i, i, i, i]
@@ -72,7 +76,9 @@ how guided pipeline works
 
 
 потребление vram:
-- guided_sd1.5 ~23 gb
+- sd1.5 ~11gb
+- guided_sd1.5 ~23gb
+- judge ~17gb
 -->
 
 

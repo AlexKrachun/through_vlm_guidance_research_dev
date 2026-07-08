@@ -18,6 +18,7 @@ dependencies:
     - hydra-core
     - accelerate
     - matplotlib
+    - pandas
     
     - jupyter
     - ipykernel

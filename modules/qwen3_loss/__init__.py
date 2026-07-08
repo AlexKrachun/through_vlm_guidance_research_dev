@@ -1,1 +1,1 @@
-from .main import Qwen35Loss
+from .main import Qwen3Loss

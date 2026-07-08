@@ -2,6 +2,15 @@ import torch
 from pathlib import Path
 from PIL import Image
 import re
+import hashlib
+
+def judgment_hash(image_path: Path, image_prompt: str, setup: str) -> str:
+    h = hashlib.sha256()
+    h.update(image_path.read_bytes())
+    h.update(image_prompt.encode('utf-8'))
+    h.update(setup.encode('utf-8'))
+    
+    return h.hexdigest()
 
 
 def normalize_prompt(prompt, prefix='', postfix=''):

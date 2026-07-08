@@ -1,16 +1,11 @@
-from pathlib import Path
-import matplotlib.pyplot as plt
+
 import torch
 from transformers import AutoProcessor, Qwen3VLForConditionalGeneration
-from PIL import Image
-from pathlib import Path
-import gc
-from hydra.utils import instantiate
 
 
 
-class Qwen35Loss:
-    def __init__(self, model_id: str, cache_dir: str, loss_fn: callable, device, dtype: torch.dtype | str=torch.float32):
+class Qwen3Loss:
+    def __init__(self, model_id: str, cache_dir: str, loss_fn: callable, device: str, dtype:  str):
         
         self.loss_fn = loss_fn
         
@@ -28,7 +23,7 @@ class Qwen35Loss:
         self.model = Qwen3VLForConditionalGeneration.from_pretrained(
             model_id,
             cache_dir=cache_dir,
-            dtype=torch.bfloat16,
+            dtype=self.dtype,
             device_map={'': self.device}
         )
 
