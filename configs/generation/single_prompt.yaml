@@ -3,4 +3,5 @@ mode: single_prompt
 prompt: The glider is flying in the clouds
 uncond_prompt: ""
 
-output_folder: single_prompt
+output_folder: usuals
+folder_prefix: signle_prompt

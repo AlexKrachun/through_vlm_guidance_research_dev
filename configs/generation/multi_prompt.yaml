@@ -4,4 +4,4 @@ prompts_file: datasets/prompts.txt
 uncond_prompt: ""
 
 output_folder: usuals
-multi_prompt_folders_prefix: multi_prompt
+folder_prefix: multi_prompt

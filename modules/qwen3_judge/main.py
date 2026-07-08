@@ -70,8 +70,8 @@ def run_qwen3_judge_pipeline(cfg, ROOT_DIR: Path, device: str):
         
     elif cfg.pipeline.params.judge_type == 'multi_prompt':
         
-        multi_prompt_folders_prefix = cfg.generation.multi_prompt_folders_prefix
-        multi_prompt_folder_pattern = re.compile(rf'^{multi_prompt_folders_prefix}')
+        multi_prompt_folder_prefix = cfg.generation.folder_prefix
+        multi_prompt_folder_pattern = re.compile(rf'^{multi_prompt_folder_prefix}')
         
         for multi_prompt_dir in data_path.iterdir():
             if multi_prompt_dir.is_dir() and multi_prompt_folder_pattern.match(multi_prompt_dir.name):

@@ -57,13 +57,16 @@ def run_sd15_pipeline(cfg, ROOT_DIR, device):
         )
         
         filename = utils.normalize_prompt(prompt, postfix='.png')
-        output_path = OUTPUT_DIR / cfg.generation.output_folder / filename
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path = OUTPUT_DIR /(cfg.generation.folder_prefix + '_' + cfg.generation.output_folder)
+        output_path.mkdir(parents=True, exist_ok=True)
+        result_img_path = output_path / filename
         
         Image.fromarray(output_image).save(output_path)
         
-        with open(OUTPUT_DIR / cfg.generation.output_folder / 'prompt.txt', 'w', encoding='utf-8') as f:
+        with open(output_path / 'prompt.txt', 'w', encoding='utf-8') as f:
             print(prompt, file=f)
+        
+        Image.fromarray(output_image).save(result_img_path)
     
     
     elif cfg.generation.mode == 'multi_prompt':
@@ -101,7 +104,7 @@ def run_sd15_pipeline(cfg, ROOT_DIR, device):
             )
             
             foldername = utils.normalize_prompt(prompt, prefix=f'{i+1:03}')
-            general_folder = OUTPUT_DIR / (cfg.generation.multi_prompt_folders_prefix + cfg.generation.output_folder) / foldername
+            general_folder = OUTPUT_DIR / (cfg.generation.folder_prefix + '_' + cfg.generation.output_folder) / foldername
             output_path = general_folder / 'sd15.png'
             output_path.parent.mkdir(parents=True, exist_ok=True)
             
