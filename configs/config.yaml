@@ -17,9 +17,9 @@ constants:
 
 hydra:
   run:
-    dir: ${paths.output_dir}/${generation.output_folder}
+    dir: ${paths.output_dir}/${generation.folder_prefix}_${generation.output_folder}
   sweep:
-    dir: ${paths.output_dir}/${generation.output_folder}
+    dir: ${paths.output_dir}/${generation.folder_prefix}_${generation.output_folder}
     subdir: ${hydra.job.num}
 
 
