@@ -109,6 +109,8 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
         )
         
         for i, prompt in loader:
+            loader.set_description(f'prompts {i + 1}/{len(prompts)}')
+            loader.refresh()
             
             foldername = utils.normalize_prompt(prompt, prefix=f'{i+1:03}')
             output_path = OUTPUT_DIR / cfg.generation.output_folder / foldername
