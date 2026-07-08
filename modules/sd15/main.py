@@ -81,6 +81,8 @@ def run_sd15_pipeline(cfg, ROOT_DIR, device):
         )
         
         for i, prompt in loader:
+            loader.set_description(f'prompts {i + 1}/{len(prompts)}')
+            loader.refresh()
             
             output_image = pipeline.generate(
                 prompt=prompt, 
