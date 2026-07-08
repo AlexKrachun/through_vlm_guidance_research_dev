@@ -101,12 +101,13 @@ def run_sd15_pipeline(cfg, ROOT_DIR, device):
             )
             
             foldername = utils.normalize_prompt(prompt, prefix=f'{i+1:03}')
-            output_path = OUTPUT_DIR / cfg.generation.output_folder / foldername / 'sd15.png'
+            general_folder = OUTPUT_DIR / (cfg.generation.multi_prompt_folders_prefix + cfg.generation.output_folder) / foldername
+            output_path = general_folder / 'sd15.png'
             output_path.parent.mkdir(parents=True, exist_ok=True)
             
             Image.fromarray(output_image).save(output_path)
             
-            with open( OUTPUT_DIR / cfg.generation.output_folder / foldername / 'prompt.txt', 'w', encoding='utf-8') as f:
+            with open(general_folder / 'prompt.txt', 'w', encoding='utf-8') as f:
                 print(prompt, file=f)
                 
             
