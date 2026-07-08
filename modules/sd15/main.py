@@ -61,6 +61,9 @@ def run_sd15_pipeline(cfg, ROOT_DIR, device):
         output_path.parent.mkdir(parents=True, exist_ok=True)
         
         Image.fromarray(output_image).save(output_path)
+        
+        with open(OUTPUT_DIR / cfg.generation.output_folder / 'prompt.txt', 'w', encoding='utf-8') as f:
+            print(prompt, file=f)
     
     
     elif cfg.generation.mode == 'multi_prompt':
@@ -100,6 +103,9 @@ def run_sd15_pipeline(cfg, ROOT_DIR, device):
             output_path.parent.mkdir(parents=True, exist_ok=True)
             
             Image.fromarray(output_image).save(output_path)
+            
+            with open( OUTPUT_DIR / cfg.generation.output_folder / foldername, 'w', encoding='utf-8') as f:
+                print(prompt, file=f)
                 
             
 
