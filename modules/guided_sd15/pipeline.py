@@ -29,7 +29,7 @@ def generate(
              logging_save_nablas_path: Path,
              logging_save_general_path: Path,
              
-             vlm_criterion: torch.nn.Module
+             vlm_criterion: torch.nn.Module,
              
              prompt: str,
              uncond_prompt: str,
