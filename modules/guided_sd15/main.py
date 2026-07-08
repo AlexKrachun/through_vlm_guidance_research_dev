@@ -1,6 +1,7 @@
 from PIL import Image
 from pathlib import Path
 from tqdm.auto import tqdm
+from hydra.utils import instantiate
 
 from . import model_loader
 from . import pipeline
@@ -41,7 +42,8 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
         raise ValueError(f'Error: steps_to_guide are to be non-decreasing')
 
     
-        
+    vlm_criterion = instantiate(cfg.vlm_loss.model, device=device)
+    
     if cfg.generation.mode == 'single_prompt':
     
         prompt = cfg.generation.prompt
@@ -62,6 +64,7 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
         
 
         output_image = pipeline.generate(
+            vlm_criterion=vlm_criterion, 
             prompt=prompt, 
             do_cfg=do_cfg, 
             cfg_scale=cfg_scale, 
@@ -128,6 +131,7 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
             ) = utils.create_extra_pipeline_dirs(output_path, cfg)
         
             output_image = pipeline.generate(
+                vlm_criterion=vlm_criterion,
                 prompt=prompt, 
                 do_cfg=do_cfg, 
                 cfg_scale=cfg_scale, 

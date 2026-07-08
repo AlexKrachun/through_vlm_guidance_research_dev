@@ -29,6 +29,8 @@ def generate(
              logging_save_nablas_path: Path,
              logging_save_general_path: Path,
              
+             vlm_criterion: torch.nn.Module
+             
              prompt: str,
              uncond_prompt: str,
              input_image=None,
@@ -134,9 +136,7 @@ def generate(
         
     def run_diffusion(model_input, context, time_embedding):
         return diffusion(model_input, context, time_embedding)
-    
-    vlm_criterion = instantiate(cfg.vlm_loss.model, device=device)
-    
+        
     
     guidance_steps_loader = tqdm(
         guidance_steps + [None], 
