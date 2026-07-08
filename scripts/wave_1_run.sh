@@ -12,4 +12,4 @@ HYDRA_FULL_ERROR=1 python run.py\
     pipeline.params.n_inference_steps=10\
     'pipeline.guidance.steps_to_guide=[2]'\
     pipeline.optimizer.lr=1e-4\
-    generation.output_folder='guided_sd15-'
+    generation.output_folder='guided_sd15-test'

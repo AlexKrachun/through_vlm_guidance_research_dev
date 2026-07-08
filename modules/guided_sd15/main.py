@@ -113,7 +113,7 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
             loader.refresh()
             
             foldername = utils.normalize_prompt(prompt, prefix=f'{i+1:03}')
-            output_path = OUTPUT_DIR / cfg.generation.output_folder / foldername
+            output_path = OUTPUT_DIR / (cfg.generation.multi_prompt_folders_prefix + cfg.generation.output_folder) / foldername
             output_path.mkdir(parents=True, exist_ok=True)
             result_img_path = output_path  / 'guided_sd15.png'
             

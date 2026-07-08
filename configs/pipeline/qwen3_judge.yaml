@@ -14,4 +14,3 @@ params:
   data_folder: ${paths.output_dir}
   explanation_max_words: 30
   judgment_results_file: ${paths.output_dir}/judgment.csv
-  multi_prompt_folders_prefix: multi_prompt

@@ -3,4 +3,5 @@ mode: multi_prompt
 prompts_file: datasets/prompts.txt
 uncond_prompt: ""
 
-output_folder: multi_prompts
+output_folder: usuals
+multi_prompt_folders_prefix: multi_prompt
