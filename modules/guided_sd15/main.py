@@ -113,7 +113,7 @@ def run_guided_sd15_pipeline(cfg, ROOT_DIR, device):
             foldername = utils.normalize_prompt(prompt, prefix=f'{i+1:03}')
             output_path = OUTPUT_DIR / cfg.generation.output_folder / foldername
             output_path.mkdir(parents=True, exist_ok=True)
-            result_img_path = output_path  / 'sd15.png'
+            result_img_path = output_path  / 'guided_sd15.png'
             
             (
                 logging_save_intermediate_finals_path,
