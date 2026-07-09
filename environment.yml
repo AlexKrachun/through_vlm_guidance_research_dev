@@ -19,6 +19,7 @@ dependencies:
     - accelerate
     - matplotlib
     - pandas
+    - plotly
     
     - jupyter
     - ipykernel
