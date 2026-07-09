@@ -22,7 +22,10 @@ logging.getLogger('huggingface_hub').setLevel(logging.ERROR)
 
 @hydra.main(config_path='configs', config_name='config', version_base=None)
 def main(cfg: DictConfig) -> None:
-    device = choose_device()
+    if cfg.device is None:
+        device = choose_device()
+    else:
+        device = cfg.device
     
     if cfg.pipeline.name == 'sd15':
         run_sd15_pipeline(cfg, ROOT_DIR, device)

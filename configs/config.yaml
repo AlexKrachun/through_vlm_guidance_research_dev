@@ -5,6 +5,8 @@ defaults:
 - generation: single_prompt
 - vlm_loss: qwen3_loss
 
+device: null
+
 paths:
   data_dir: data
   source_dir: sources

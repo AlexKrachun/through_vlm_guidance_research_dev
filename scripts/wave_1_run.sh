@@ -75,6 +75,26 @@ for guide_step in 0 20 40; do
 done
 
 
+for guide_step in 45; do
+    for lr in 1e-2 4e-3 1e-3 4e-4; do
+        for cfg_scale in 5 7 9; do
+            output_folder="guided_sd15-${PROMPTS_FILE_NAME}-guide_steps${guide_step}${guide_step}${guide_step}${guide_step}-lr${lr}-cfg${cfg_scale}"
+
+            HYDRA_FULL_ERROR=1 python run.py\
+                pipeline=guided_sd15\
+                generation=multi_prompt\
+                generation.prompts_file="${PROMPTS_FILE}"\
+                generation.output_folder="${output_folder}"\
+                pipeline.params.n_inference_steps="${N_STEPS}"\
+                pipeline.params.cfg_scale="${cfg_scale}"\
+                "pipeline.guidance.steps_to_guide=[${guide_step},${guide_step},${guide_step},${guide_step}]"\
+                pipeline.optimizer.lr="${lr}"
+        done
+    done
+done
+
+
+
 
 
 
