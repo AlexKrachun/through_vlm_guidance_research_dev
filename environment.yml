@@ -20,6 +20,7 @@ dependencies:
     - matplotlib
     - pandas
     - plotly
+    - dash
     
     - jupyter
     - ipykernel

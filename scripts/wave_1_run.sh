@@ -14,7 +14,7 @@ PROMPTS_FILE_NAME="$(basename "$PROMPTS_FILE" .txt)"
 
 N_STEPS=50
 
-
+# 18
 # for guide_step in 0 20 40; do
 #     for lr in 1e-2 1e-3; do
 #         for cfg_scale in 1 3 7; do
@@ -34,49 +34,70 @@ N_STEPS=50
 # done
 
 
+# 12
+# for guide_step in 0 20 40; do
+#     for lr in 1e-2 1e-3; do
+#         for cfg_scale in 5 9; do
+#             output_folder="guided_sd15-${PROMPTS_FILE_NAME}-guide_steps${guide_step}${guide_step}${guide_step}${guide_step}-lr${lr}-cfg${cfg_scale}"
 
-for guide_step in 0 20 40; do
-    for lr in 1e-2 1e-3; do
-        for cfg_scale in 5 9; do
-            output_folder="guided_sd15-${PROMPTS_FILE_NAME}-guide_steps${guide_step}${guide_step}${guide_step}${guide_step}-lr${lr}-cfg${cfg_scale}"
-
-            HYDRA_FULL_ERROR=1 python run.py\
-                pipeline=guided_sd15\
-                generation=multi_prompt\
-                generation.prompts_file="${PROMPTS_FILE}"\
-                generation.output_folder="${output_folder}"\
-                pipeline.params.n_inference_steps="${N_STEPS}"\
-                pipeline.params.cfg_scale="${cfg_scale}"\
-                "pipeline.guidance.steps_to_guide=[${guide_step},${guide_step},${guide_step},${guide_step}]"\
-                pipeline.optimizer.lr="${lr}"
-        done
-    done
-done
-
-
+#             HYDRA_FULL_ERROR=1 python run.py\
+#                 pipeline=guided_sd15\
+#                 generation=multi_prompt\
+#                 generation.prompts_file="${PROMPTS_FILE}"\
+#                 generation.output_folder="${output_folder}"\
+#                 pipeline.params.n_inference_steps="${N_STEPS}"\
+#                 pipeline.params.cfg_scale="${cfg_scale}"\
+#                 "pipeline.guidance.steps_to_guide=[${guide_step},${guide_step},${guide_step},${guide_step}]"\
+#                 pipeline.optimizer.lr="${lr}"
+#         done
+#     done
+# done
 
 
-for guide_step in 0 20 40; do
-    for lr in 4e-3 4e-4; do
-        for cfg_scale in 3 5 7 9; do
-            output_folder="guided_sd15-${PROMPTS_FILE_NAME}-guide_steps${guide_step}${guide_step}${guide_step}${guide_step}-lr${lr}-cfg${cfg_scale}"
 
-            HYDRA_FULL_ERROR=1 python run.py\
-                pipeline=guided_sd15\
-                generation=multi_prompt\
-                generation.prompts_file="${PROMPTS_FILE}"\
-                generation.output_folder="${output_folder}"\
-                pipeline.params.n_inference_steps="${N_STEPS}"\
-                pipeline.params.cfg_scale="${cfg_scale}"\
-                "pipeline.guidance.steps_to_guide=[${guide_step},${guide_step},${guide_step},${guide_step}]"\
-                pipeline.optimizer.lr="${lr}"
-        done
-    done
-done
+# 24
+# for guide_step in 0 20 40; do
+#     for lr in 4e-3 4e-4; do
+#         for cfg_scale in 3 5 7 9; do
+#             output_folder="guided_sd15-${PROMPTS_FILE_NAME}-guide_steps${guide_step}${guide_step}${guide_step}${guide_step}-lr${lr}-cfg${cfg_scale}"
+
+#             HYDRA_FULL_ERROR=1 python run.py\
+#                 pipeline=guided_sd15\
+#                 generation=multi_prompt\
+#                 generation.prompts_file="${PROMPTS_FILE}"\
+#                 generation.output_folder="${output_folder}"\
+#                 pipeline.params.n_inference_steps="${N_STEPS}"\
+#                 pipeline.params.cfg_scale="${cfg_scale}"\
+#                 "pipeline.guidance.steps_to_guide=[${guide_step},${guide_step},${guide_step},${guide_step}]"\
+#                 pipeline.optimizer.lr="${lr}"
+#         done
+#     done
+# done
 
 
-for guide_step in 45; do
-    for lr in 1e-2 4e-3 1e-3 4e-4; do
+# 12
+# for guide_step in 45; do
+#     for lr in 1e-2 4e-3 1e-3 4e-4; do
+#         for cfg_scale in 5 7 9; do
+#             output_folder="guided_sd15-${PROMPTS_FILE_NAME}-guide_steps${guide_step}${guide_step}${guide_step}${guide_step}-lr${lr}-cfg${cfg_scale}"
+
+#             HYDRA_FULL_ERROR=1 python run.py\
+#                 pipeline=guided_sd15\
+#                 generation=multi_prompt\
+#                 generation.prompts_file="${PROMPTS_FILE}"\
+#                 generation.output_folder="${output_folder}"\
+#                 pipeline.params.n_inference_steps="${N_STEPS}"\
+#                 pipeline.params.cfg_scale="${cfg_scale}"\
+#                 "pipeline.guidance.steps_to_guide=[${guide_step},${guide_step},${guide_step},${guide_step}]"\
+#                 pipeline.optimizer.lr="${lr}"
+#         done
+#     done
+# done
+
+
+# 12
+for guide_step in 0 10; do
+    for lr in 2e-4 1e-4; do
         for cfg_scale in 5 7 9; do
             output_folder="guided_sd15-${PROMPTS_FILE_NAME}-guide_steps${guide_step}${guide_step}${guide_step}${guide_step}-lr${lr}-cfg${cfg_scale}"
 
@@ -94,7 +115,37 @@ for guide_step in 45; do
 done
 
 
+# 12
+for guide_step in 0 10; do
+    for lr in 1e-3 4e-4 2e-4; do
+        for cfg_scale in 11 13; do
+            output_folder="guided_sd15-${PROMPTS_FILE_NAME}-guide_steps${guide_step}${guide_step}${guide_step}${guide_step}-lr${lr}-cfg${cfg_scale}"
 
+            HYDRA_FULL_ERROR=1 python run.py\
+                pipeline=guided_sd15\
+                generation=multi_prompt\
+                generation.prompts_file="${PROMPTS_FILE}"\
+                generation.output_folder="${output_folder}"\
+                pipeline.params.n_inference_steps="${N_STEPS}"\
+                pipeline.params.cfg_scale="${cfg_scale}"\
+                "pipeline.guidance.steps_to_guide=[${guide_step},${guide_step},${guide_step},${guide_step}]"\
+                pipeline.optimizer.lr="${lr}"
+        done
+    done
+done
+
+
+# 5
+for cfg_scale in 3 5 7 9 13; do
+    HYDRA_FULL_ERROR=1 python run.py\
+        output_folder="sd15-${PROMPTS_FILE_NAME}-cfg${cfg_scale}"\
+        pipeline=sd15\
+        pipeline.params.cfg_scale="${cfg_scale}"\
+        generation=multi_prompt\
+        generation.prompts_file=datasets/whoops50.txt\
+        pipeline.params.n_inference_steps=50\
+        generation.output_folder='sd15-whoops50'
+done
 
 
 
