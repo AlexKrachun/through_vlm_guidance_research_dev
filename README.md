@@ -57,8 +57,14 @@ HYDRA_FULL_ERROR=1 python run.py\
 <!-- 
 todo
 
+- сделать 3d plot порастяженнее по cfg
+- построить график sd1.5 alignment / cfg
+- построить 3d plot quality
 - дотестить потенциально интересные области grid search
 - сравнить лучший найденный набор гиперпараметров с sd1.5 с лучшим cfg_scale
+- сделать 2d графики с изолиниями по слайсам cfg
+- написать отчет для Айбека
+- оформить гитхаб (through_vlm_guidance_research, RAEDME)
 
 что я хочу узнать от графиков
 - какие параметры оптимальны (возможно какие стоит допроверить) - 3d plot alignment / (lr, cfg, i)
@@ -84,8 +90,11 @@ how guided pipeline works
 - judge ~17gb
 
 Автор исполнял код на 
-- RTX 5090 32gb vram
+- RTX 3090 24gb vram
 - RTX 4090 24gb vram
+- RTX 5090 32gb vram
+- RTX PRO 6000 96gb vram
+
 
 -->
 
