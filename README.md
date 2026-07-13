@@ -56,9 +56,6 @@ HYDRA_FULL_ERROR=1 python run.py\
 
 <!-- 
 todo
-
-- сделать 3d plot порастяженнее по cfg
-- построить график sd1.5 alignment / cfg
 - построить 3d plot quality
 - дотестить потенциально интересные области grid search
 - сравнить лучший найденный набор гиперпараметров с sd1.5 с лучшим cfg_scale
@@ -87,7 +84,7 @@ how guided pipeline works
 потребление vram:
 - sd1.5 ~11gb
 - guided_sd1.5 ~23gb
-- judge ~17gb
+- judge ~18gb
 
 Автор исполнял код на 
 - RTX 3090 24gb vram
