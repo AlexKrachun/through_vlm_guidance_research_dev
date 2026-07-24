@@ -136,16 +136,16 @@ N_STEPS=50
 
 
 # # 8
-# for cfg_scale in 3 5 7 9 11 13 15 17; do
+# for cfg_scale in 1 3 5 7 9 11 13 15 17 19 21; do
 #     HYDRA_FULL_ERROR=1 python run.py\
 #         device=cuda:0\
-#         output_folder="sd15-${PROMPTS_FILE_NAME}-cfg${cfg_scale}"\
+#         generation.output_folder="sd15-${PROMPTS_FILE_NAME}-cfg${cfg_scale}"\
 #         pipeline=sd15\
 #         pipeline.params.cfg_scale="${cfg_scale}"\
 #         generation=multi_prompt\
 #         generation.prompts_file="${PROMPTS_FILE}"\
 #         pipeline.params.n_inference_steps=50\
-
+# done
 
 # # 3
 # for guide_step in 0; do
@@ -426,16 +426,17 @@ N_STEPS=50
 # done
 
 
-# 7
-for cfg_scale in 3 5 7 9 11 13 15 17; do
-    HYDRA_FULL_ERROR=1 python run.py\
-        output_folder="sd15-${PROMPTS_FILE_NAME}-cfg${cfg_scale}"\
-        pipeline=sd15\
-        pipeline.params.cfg_scale="${cfg_scale}"\
-        generation=multi_prompt\
-        generation.prompts_file="${PROMPTS_FILE}"\
-        pipeline.params.n_inference_steps=50\
-
+# # 8
+# for cfg_scale in 11; do
+#     HYDRA_FULL_ERROR=1 python run.py\
+#         device=cuda:0\
+#         generation.output_folder="sd15-${PROMPTS_FILE_NAME}-cfg${cfg_scale}"\
+#         pipeline=sd15\
+#         pipeline.params.cfg_scale="${cfg_scale}"\
+#         generation=multi_prompt\
+#         generation.prompts_file="${PROMPTS_FILE}"\
+#         pipeline.params.n_inference_steps=50
+# done
 
 HYDRA_FULL_ERROR=1 python run.py\
     pipeline=qwen3_judge\

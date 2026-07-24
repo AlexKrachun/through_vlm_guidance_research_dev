@@ -111,3 +111,17 @@ temp/
 
 experiments
 !datasets/image.png
+
+# Publishable Wave 1 report for GitHub Pages
+!experiments/
+experiments/*
+!experiments/wave_1/
+experiments/wave_1/*
+!experiments/wave_1/external/
+experiments/wave_1/external/*
+!experiments/wave_1/external/generate_wave_1_report.py
+!experiments/wave_1/external/wave_1_report.html
+!experiments/wave_1/external/wave_1_report_assets/
+!experiments/wave_1/external/wave_1_report_assets/**
+!experiments/wave_1/external/wave_1_report_charts/
+!experiments/wave_1/external/wave_1_report_charts/**
